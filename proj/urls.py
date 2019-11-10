@@ -20,7 +20,7 @@ from django.urls import path, include # new
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView # new
-from myapi.views import index
+from myapi.views import index, search, search_journey
 
 
 urlpatterns = [
@@ -29,6 +29,9 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'), # new
     path('index/', index),
+    path('search/', search),
+    #path('postdetails/', search_journey)
+
 ]
 
 # accounts/ provides below app

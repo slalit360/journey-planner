@@ -1,14 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Journey Planner</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $( function()
+                  {
+                    $( "#fromfield" ).autocomplete(
+                                                        {
+                                                          source: "/search/",
+                                                          minLength: 2,
+                                                        });
+                  }
+        );
+        $( function()
+                  {
+                    $( "#tofield" ).autocomplete(
+                                                        {
+                                                          source: "/search/",
+                                                          minLength: 2,
+                                                        });
+                  }
+        );
+    </script>
+    <style>
+        table, td {
+          border: 1px solid black;
+        }
+        thead {
+            align:center;
+        }
+
+        table {
+          float: left;
+          width: 30%;
+          margin: 10px;
+        }
+
+        table:nth-child(3n+1) {
+          clear:left;
+        }
+    </style>
 </head>
 <body>
-<form method="POST" class="post-form">
+    <center>
+      <div>
+        <h2>Journey Planner</h2>
+          <br>
+            <form  method="POST">
+                {% csrf_token %}
+            <input style="width:200px;height:35px;" id="fromfield" type="text" name="term_1" placeholder="from here..." required><br><br>
+            <input style="width:200px;height:35px;" id="tofield" type="text" name="term_2" placeholder="to here..." required><br><br>
+            <input style="width:90px;height:35px;" id="submit" type="submit" value="Search"><br><br>
+        </form>
+      </div>
+
+        {% if from or to %}
+            <table >
+                <thead><th> From </th></thead>
+                <tbody>
+                    {% for i in from %}
+                    <tr> <td> {{ i }}</td> </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <table>
+                <thead><th> To </th></thead>
+                <tbody>
+                    {% for j in to %}
+                    <tr> <td> {{ j }}</td> </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    <!--form method="POST" class="post-form">
         {% csrf_token %}
         {{ form.as_table }}
         <button type="submit" class="save btn btn-default">Search</button>
-    </form>
+    </form-->
+    </center>
 </body>
+
 </html>
