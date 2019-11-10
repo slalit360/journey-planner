@@ -14,16 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.urls import include, path
 from django.contrib import admin
-from myapi.views import HeroViewSet
-from rest_framework import routers
-
-router = routers.DefaultRouter()
-router.register('heroes', HeroViewSet)
+from django.urls import path, include # new
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    path('', include(router.urls)),
-    url('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')), # new for login , logout , pass management
+
 ]
+# accounts/ provides below app
+
+# accounts/login/ [name='login']
+# accounts/logout/ [name='logout']
+# accounts/password_change/ [name='password_change']
+# accounts/password_change/done/ [name='password_change_done']
+# accounts/password_reset/ [name='password_reset']
+# accounts/password_reset/done/ [name='password_reset_done']
+# accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
+# accounts/reset/done/ [name='password_reset_complete']
