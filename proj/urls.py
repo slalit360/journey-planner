@@ -20,13 +20,17 @@ from django.urls import path, include # new
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView # new
+from myapi.views import index
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'), # new
-
+    path('index/', index),
 ]
+
 # accounts/ provides below app
 
 # accounts/login/ [name='login']

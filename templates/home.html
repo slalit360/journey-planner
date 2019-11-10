@@ -4,9 +4,14 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+    Hi, {{ user.username }}!
+    <p><a href="{% url 'logout' %}">logout</a></p>
+    <br><br>
+    <p><a href="/index/">Journey Planner</a></p>
+    <p><a href="/fav/">Favourite</a></p>
+    </form>
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
+  <p>You are not logged in , click here.. <a href="{% url 'login' %}"> login</a></p>
+
 {% endif %}
 {% endblock %}
