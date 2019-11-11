@@ -1,12 +1,6 @@
-from __future__ import unicode_literals
 from django.db import models
-from django.utils import timezone
 
+class FavouritePlan(models.Model):
 
-class Journey(models.Model):
-    journey_from = models.CharField(max_length=30)
-    journey_to = models.CharField(max_length=30)
-    journey_date = models.DateTimeField(default=timezone.now())
-
-    class Meta:
-        db_table = "journey"
+    from_location = models.CharField(max_length=100)
+    to_location   = models.CharField(max_length=100)

@@ -13,14 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
-from django.urls import path, include # new
-
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView # new
-from myapi.views import index, search, search_journey
+from myapi.views import index, search, savePlan
 
 
 urlpatterns = [
@@ -28,10 +24,9 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'), # new
-    path('index/', index),
-    path('search/', search),
-    #path('postdetails/', search_journey)
-
+    path('index/', index, name='index'),
+    path('search/', search , name='search'),
+    path('index/savePlan/', savePlan, name='postPlan'),
 ]
 
 # accounts/ provides below app

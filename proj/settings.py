@@ -135,3 +135,6 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+API_APP_ID = 'c9594fdb'
+API_APP_KEY = 'b725f6d6ac26df4ad7c30f7aa190500a'

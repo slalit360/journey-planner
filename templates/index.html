@@ -28,61 +28,116 @@
         );
     </script>
     <style>
-        table, td {
-          border: 1px solid black;
-        }
-        thead {
-            align:center;
-        }
-
         table {
-          float: left;
-          width: 30%;
-          margin: 10px;
+            display:inline-block;
+            float: left;
+            margin: 0px 50px 0px 50px;
+        }
+        table:nth-child(3n+1) {
+            clear:left;
+        }
+        input[type='text']{
+            width:200px;
+            height:35px;
+        }
+        input[type='submit']{
+            width:90px;
+            height:35px;
+            font-size:18px;
+            border-radius:5px;
+        }
+        .radiotext {
+            margin: 5px 20px 5px 5px;
+        }
+        input[type='radio']:after {
+            width: 20px;
+            height: 20px;
+            border-radius: 15px;
+            top: -2px;
+            left: -1px;
+            position: relative;
+            background-color: #d1d3d1;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 1px solid black;
         }
 
-        table:nth-child(3n+1) {
-          clear:left;
+        input[type='radio']:checked:after {
+            width: 20px;
+            height: 20px;
+            border-radius: 15px;
+            top: -2px;
+            left: -1px;
+            position: relative;
+            background-color: #42ffff;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid #105c5c;
         }
     </style>
 </head>
+
 <body>
     <center>
-      <div>
-        <h2>Journey Planner</h2>
-          <br>
+        <div>
+            <h2>Journey Planner</h2>
+            <br>
             <form  method="POST">
                 {% csrf_token %}
-            <input style="width:200px;height:35px;" id="fromfield" type="text" name="term_1" placeholder="from here..." required><br><br>
-            <input style="width:200px;height:35px;" id="tofield" type="text" name="term_2" placeholder="to here..." required><br><br>
-            <input style="width:90px;height:35px;" id="submit" type="submit" value="Search"><br><br>
-        </form>
-      </div>
-
+                <input id="fromfield" type="text" name="term_1" placeholder="from here..." required><br><br>
+                <input id="tofield" type="text" name="term_2" placeholder="to here..." required><br><br>
+                <input id="submit" type="submit" value="Search"><br><br>
+            </form>
+        </div>
+        <div>
+            {% if msg %}
+                <h6 style="color:red;"> {{ msg }} </h6>
+            {% endif %}
+        </div>
+        <div>
         {% if from or to %}
-            <table >
-                <thead><th> From </th></thead>
-                <tbody>
-                    {% for i in from %}
-                    <tr> <td> {{ i }}</td> </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <form method="POST" action="savePlan/">
+                {% csrf_token %}
+                <table >
+                    <thead><th> From </th></thead>
+                    <tbody>
+                        {% for i in from %}
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="radio" class="radiotext" name="fromradio" value="{{ i }}" required >{{ i }}
+                                </label>
 
-            <table>
-                <thead><th> To </th></thead>
-                <tbody>
-                    {% for j in to %}
-                    <tr> <td> {{ j }}</td> </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <table>
+                    <thead>
+                        <th> To </th>
+                    </thead>
+                    <tbody>
+                        {% for j in to %}
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="radio" class="radiotext" name="toradio" value="{{ j }}" required>{{ j }}
+                                </label>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div>
+                    <input type="submit" id="submit_1" value="Go Fav !"/>
+                </div>
+            </form>
         {% endif %}
-    <!--form method="POST" class="post-form">
-        {% csrf_token %}
-        {{ form.as_table }}
-        <button type="submit" class="save btn btn-default">Search</button>
-    </form-->
+        </div>
     </center>
 </body>
 
