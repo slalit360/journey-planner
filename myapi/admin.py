@@ -1,4 +1,4 @@
 from django.contrib import admin
-#from .models import JourneyModel
+from .models import FavouritePlan
 
-#admin.site.register(JourneyModel)
+admin.site.register(FavouritePlan)

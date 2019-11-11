@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView # new
-from myapi.views import index, search, savePlan
+from myapi.views import index, search, savePlan, favView
 
 
 urlpatterns = [
@@ -27,6 +27,7 @@ urlpatterns = [
     path('index/', index, name='index'),
     path('search/', search , name='search'),
     path('index/savePlan/', savePlan, name='postPlan'),
+    path('fav/', favView),
 ]
 
 # accounts/ provides below app

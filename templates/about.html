@@ -119,77 +119,11 @@
                     <a href="{% url 'login' %}">logout</a>
                 </div>
                 <br>
-                {% if not fav %}
-                <form  method="POST">
-                    {% csrf_token %}
-                    <input id="fromfield" type="text" name="term_1" placeholder="from here..." required>
-                    <input id="tofield" type="text" name="term_2" placeholder="to here..." required>
-                    <input id="submit" type="submit" value="Search"><br><br>
-                </form>
-                {% endif %}
-            </div>
-            <div>
-                {% if msg %}
-                    <h6 style="color:red;"> {{ msg }} </h6>
-                {% endif %}
-            </div>
-            <div>
-            {% if from or to %}
-                <form method="POST" action="savePlan/">
-                    {% csrf_token %}
-                    <table >
-                        <thead><th> From </th></thead>
-                        <tbody>
-                            {% for i in from %}
-                            <tr>
-                                <td>
-                                    <label>
-                                        <input type="radio" class="radiotext" name="fromradio" value="{{ i }}" required >{{ i }}
-                                    </label>
 
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-
-                    <table>
-                        <thead>
-                            <th> To </th>
-                        </thead>
-                        <tbody>
-                            {% for j in to %}
-                            <tr>
-                                <td>
-                                    <label>
-                                        <input type="radio" class="radiotext" name="toradio" value="{{ j }}" required>{{ j }}
-                                    </label>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <div>
-                        <input type="submit" id="submit_1" value="Go Fav !"/>
-                    </div>
-                </form>
-            {% endif %}
             </div>
             <div>
-                {% if fav %}
-                    <table border="1">
-                        <thead><th>From</th><th>From</th><th>Favourite</th></thead>
-                        <tbody>
-                        {% for rec in fav %}
-                            <tr>
-                                <td>{{ rec.from_location }}</td>
-                                <td>{{ rec.to_location }}</td>
-                                <td>{{  rec.fav_flag }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                {% endif %}
+                <h3>Journey Planner API </h3>
+                <p> Api credit Transport of UK</p>
             </div>
         </div>
     </center>

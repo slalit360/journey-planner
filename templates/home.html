@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
-
 {% block content %}
-{% if user.is_authenticated %}
-    Hi, {{ user.username }}!
-    <p><a href="{% url 'logout' %}">logout</a></p>
-    <br><br>
-    <p><a href="/index/">Journey Planner</a></p>
-    <p><a href="/fav/">Favourite</a></p>
-    </form>
-{% else %}
-  <p>You are not logged in , click here.. <a href="{% url 'login' %}"> login</a></p>
-
-{% endif %}
+    {% if user.is_authenticated %}
+        <center>
+        <div class="container">
+            <h2>Journey Planner</h2>
+            <div class="topnav">
+                <a class="active" href="#"> Hi, {{ user.username }}! </a>
+                <a href="/index/">Journey Planner</a>
+                <a href="/fav/">Favourite</a>
+                <a href="#about">About</a>
+                <a href="{% url 'login' %}">logout</a>
+            </div>
+        </div>
+        </center>
+    {% else %}
+      <h3>You are not logged in , click here.. <a href="{% url 'login' %}"> login</a></h3>
+    {% endif %}
 {% endblock %}
+
