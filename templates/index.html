@@ -119,13 +119,13 @@
                     <a href="{% url 'login' %}">logout</a>
                 </div>
                 <br>
-                {% if not fav %}
-                <form  method="POST">
-                    {% csrf_token %}
-                    <input id="fromfield" type="text" name="term_1" placeholder="from here..." required>
-                    <input id="tofield" type="text" name="term_2" placeholder="to here..." required>
-                    <input id="submit" type="submit" value="Search"><br><br>
-                </form>
+                {% if fav is None %}
+                    <form  method="POST">
+                        {% csrf_token %}
+                        <input id="fromfield" type="text" name="term_1" placeholder="from here..." required>
+                        <input id="tofield" type="text" name="term_2" placeholder="to here..." required>
+                        <input id="submit" type="submit" value="Search"><br><br>
+                    </form>
                 {% endif %}
             </div>
             <div>
@@ -177,14 +177,16 @@
             </div>
             <div>
                 {% if fav %}
-                    <table border="1">
-                        <thead><th>From</th><th>From</th><th>Favourite</th></thead>
+                    <h3>Your Favourite</h3>
+                    <br>
+                    <table  border="1">
+                        <thead><th>From</th><th>To</th><!--th>Favourite</th--></thead>
                         <tbody>
                         {% for rec in fav %}
                             <tr>
-                                <td>{{ rec.from_location }}</td>
-                                <td>{{ rec.to_location }}</td>
-                                <td>{{  rec.fav_flag }}</td>
+                                <td style="width:500px;">{{ rec.from_location }}</td>
+                                <td style="width:500px;">{{ rec.to_location }}</td>
+                                <!--td>{{  rec.fav_flag }}</td-->
                             </tr>
                         {% endfor %}
                         </tbody>

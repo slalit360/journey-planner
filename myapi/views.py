@@ -138,3 +138,7 @@ def favView(request):
             print("- Added to fav -- ")
 
     return render(request, "index.html", {'fav': favList} )
+
+
+def about(request):
+    return render(request, "about.html")
