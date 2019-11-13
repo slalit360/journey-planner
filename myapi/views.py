@@ -31,6 +31,7 @@ def index(request):
 
     return render(request, "index.html")
 
+
 def search(request):
     """
     Autocomplete ajax call
@@ -61,7 +62,7 @@ def search(request):
         data = ''
     return HttpResponse(data, 'application/json')
 
-@login_required
+
 def search_journey(term_1, term_2):
     msg = None
     journey_list = {}
@@ -103,6 +104,7 @@ def search_journey(term_1, term_2):
 
     return fromLocation, toLocation, msg
 
+
 @login_required
 def savePlan(request):
     print("--- PLAN POST ---")
@@ -120,10 +122,12 @@ def savePlan(request):
             journey.from_location = from_radio
             journey.to_location = to_radio
             journey.fav_flag = True
+            journey.user = str(request.user).strip()
             journey.save()
             print("- Added to fav -- ")
 
     return render(request, "index.html", {'msg': 'Journey ( '+from_radio+' -> '+to_radio+' ) added to favourite !'})
+
 
 @login_required
 def favView(request):
@@ -132,7 +136,10 @@ def favView(request):
     if request.method == "GET":
         if request.user.is_authenticated:
             print("USER ID :", request.user)
-            favSet = FavouritePlan.objects.all()
+            if request.user == 'admin':
+                favSet = FavouritePlan.objects.all()
+            else:
+                favSet = FavouritePlan.objects.filter(user=str(request.user))
 
             for record in favSet:
                 favList.append(record)
@@ -140,6 +147,7 @@ def favView(request):
             print("- Added to fav -- ")
 
     return render(request, "index.html", {'fav': favList} )
+
 
 @login_required
 def about(request):
