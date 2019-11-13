@@ -2,11 +2,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from proj.settings import API_APP_ID, API_APP_KEY
 from myapi.models import FavouritePlan
-
+from django.contrib.auth.decorators import login_required
 import json
-
 import requests
 
+
+
+@login_required
 def index(request):
     data = []
     login_flag = None
@@ -59,7 +61,7 @@ def search(request):
         data = ''
     return HttpResponse(data, 'application/json')
 
-
+@login_required
 def search_journey(term_1, term_2):
     msg = None
     journey_list = {}
@@ -101,7 +103,7 @@ def search_journey(term_1, term_2):
 
     return fromLocation, toLocation, msg
 
-
+@login_required
 def savePlan(request):
     print("--- PLAN POST ---")
 
@@ -123,7 +125,7 @@ def savePlan(request):
 
     return render(request, "index.html", {'msg': 'Journey ( '+from_radio+' -> '+to_radio+' ) added to favourite !'})
 
-
+@login_required
 def favView(request):
     print("--- FAV GET ---")
     favList = []
@@ -139,6 +141,6 @@ def favView(request):
 
     return render(request, "index.html", {'fav': favList} )
 
-
+@login_required
 def about(request):
     return render(request, "about.html")
